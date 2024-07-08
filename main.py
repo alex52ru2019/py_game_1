@@ -25,6 +25,17 @@ color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
 running = True #переменная для цикла
 while running: #цикл игры
-    pass
+    screen.fill(color) #заливка экрана цветом
+    for event in pygame.event.get(): #цикл по событиям в pygame
+        if event.type == pygame.QUIT: #нажали на крестик (закрыли окно)
+            running = False #условие для завершения цикла
+        if event.type == pygame.MOUSEBUTTONDOWN: #если нажали кнопку мыши
+            mouse_x, mouse_y = pygame.mouse.get_pos() #сохраняем текущие коордиаты мыши
+            if (target_x < mouse_x < target_x+target_widtg) and (target_y < mouse_y < target_y+target_height):
+                target_x = random.randint(0, SCREEN_WIDTH - target_widtg)  # координата х мишени
+                target_y = random.randint(0, SCREEN_HEIGHT - target_height)  # координата у мишени
+    screen.blit(targen_img, (target_x, target_y)) # отрисовка цели
+    pygame.display.update() #обновление дисплея
+
 
 pygame.quit() #выход из игры
